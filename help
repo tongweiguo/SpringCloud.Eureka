@@ -1,0 +1,67 @@
+							注册中心配置帮助说明
+							eureka.instance为前缀
+参数名													说明									默认值
+prefer-ip-address								是否优先使用IP地址作为主机名的标识                         			 	false
+
+lease-renewal-interval-in-seconds    			Eureka客户端向注册中心发送心跳的间隔,单位秒				30
+
+lease-expiration-duration-in-seconds			Eureka注册中心在收到最后一次心跳之后等待的时间			90
+												上限,超过该时间之后注册中心会将该服务实例从服务
+												清单中剔除,从而禁止服务调用请求被发送到该实例上.
+											
+non-secure-port									非安全的通信端口号								80
+
+secure-port										安全的通信端口号									443
+
+non-secure-port-enabled   						是否启用非安全的通信端口号							true
+
+secure-port-enabled 							是否启用安全的通信端口号							false
+
+appname											服务名,默认取spring.application.name
+												的配置值,如果没有则为unknown
+												
+hostname										主机名,不配置的时候将根据操作系统的主机名来获取
+
+							eureka.client为前缀
+enabled											是否启用Eureka客户端								true
+
+registry-fetch-interval-seconds					从Eureka注册中心获取服务列表的间隔时间.单位s			30
+
+instance-info-replication-interval-seconds		更新服务实例信息的变化到Eureka注册中心的间隔时间			30
+
+initial-instance-info-replication-interval-seconds
+												初始化服务实例信息到Eureka注册中心的间隔时间				40
+
+eureka-service-url-poll-interval-seconds		轮询Eureka注册中心地址更改的间隔时间.当与Spring			300
+												Cloud Config配合动态刷新Eureka的serviceURL
+												地址时需要关注该参数	单位为秒
+
+eureka-server-read-timeout-seconds				读取Eureka server信息的超时时间,单位为秒				8
+
+eureka-server-connect-timeout-seconds			连接Eureka server的超时时间,单位为秒				5
+
+eureka-server-total-connections					从Eureka客户端到所有Eureka服务端的连接总数			200
+
+eureka-server-total-connections-per-host		从Eureka客户端到每个Eureka服务端主机的连接总数			50
+
+eureka-connection-idle-timeout-seconds			Eureka服务端连接的空闲关闭时间,单位为秒				30
+
+heartbeat-executor-thread-pool-size				心跳连接池的初始化线程数							2
+    
+heartbeat-executor-exponential-back-off-bound	心跳超时重试延迟时间的最大乘数值						10
+
+cache-refresh-executor-thread-pool-size			缓存刷新线程池的初始化线程数							2
+
+cache-refresh-executor-exponential-back-off-bound 
+												缓存刷新重试延迟时间的最大乘数值       						10
+
+use-dns-for-fetching-service-urls 				使用DNS来获取Eureka服务端的serverURL				false
+
+register-with-eureka							是否将自身的实例信息注册到Eureka注册中心				true
+
+prefer-same-zone-eureka							是否偏好使用处于zone的Eureka注册中心					true
+	
+filter-only-up-instances						获取实例时是否过滤,仅保留UP状态的实例					true
+
+fetch-registry									是否从Eureka注册中心获取注册信息						true
+

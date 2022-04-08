@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Feign-Hystrix
+
+server:
+  port: 9100
+
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5  #向服务中心检索服务列表的间隔时间
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+
+feign: 
+  hystrix: 
+    enabled: true #开启feign调用方式的熔断装置

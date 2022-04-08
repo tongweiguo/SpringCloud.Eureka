@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: Consumer-Ribbon
+
+server:
+  port: 9100
+
+eureka:
+  instance:
+    #服务续约时间(服务向注册中心发送续约的间隔),默认30秒  
+    lease-renewal-interval-in-seconds: 30
+  client:
+    #针对新服务上线, Eureka client获取不及时的问题，可以修改服务列表更新时间，默认：30秒
+    #前提是eureka.client.fetch-registry的值是true,允许向服务中心检索服务列表
+    #防止调用服务时,该服务还没获取到
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+

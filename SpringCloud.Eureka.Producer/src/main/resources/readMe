@@ -1,0 +1,7 @@
+服务提供者
+	向服务中心注册服务
+	启动类中添加@EnableDiscoveryClient注解
+	
+	实现了负载均衡,启动多个服务提供,服务会被轮流调用
+	因为实现了负载均衡,所以启动时需要加参数:--spring.profiles.active=producer1
+	producer1表示启动producer1参数下的服务

@@ -1,0 +1,32 @@
+server:
+ port: 9000
+
+spring:
+ application:
+  name: SpringCloud-Producer
+ profiles: producer1
+
+eureka:
+ client:
+  registry-fetch-interval-seconds: 5  #向服务中心检索服务列表的间隔时间
+  serviceUrl:
+   defaultZone: http://localhost:8000/eureka/
+   
+---
+server:
+ port: 9001
+
+spring:
+ application:
+  name: SpringCloud-Producer
+ profiles: producer2
+
+eureka:
+  instance:
+    #服务续约时间(服务向注册中心发送续约的间隔),默认30秒  
+    lease-renewal-interval-in-seconds: 30 
+  client:
+   registry-fetch-interval-seconds: 5  #向服务中心检索服务列表的间隔时间
+   serviceUrl:
+    defaultZone: http://localhost:8000/eureka/
+   

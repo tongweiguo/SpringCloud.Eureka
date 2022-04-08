@@ -1,0 +1,5 @@
+服务注册中心集群
+
+    peer1,peer2,peer3分别是三台服务器的IP.
+    启动添加参数代表启动相对应配置下的服务注册中心.
+    --spring.profiles.active=peer1

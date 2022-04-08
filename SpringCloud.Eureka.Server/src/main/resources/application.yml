@@ -1,0 +1,38 @@
+server:
+ port: 8000  #服务端口
+ 
+spring: 
+ application: 
+  name: SpringCloud-Eureka    #服务名称
+  
+eureka: 
+ instance: 
+    prefer-ip-address: true #是否优先使用IP地址作为主机名的标识   
+    #秒.服务超时时间 (服务失效时间)
+    lease-expiration-duration-in-seconds: 90
+    #服务续约时间(向注册中心发送续约的间隔),默认30秒    
+    #lease-renewal-interval-in-seconds: 30
+ client:
+    #针对新服务上线, Eureka client获取不及时的问题，可以修改服务列表更新时间，默认：30秒
+    #前提是eureka.client.fetch-registry的值是true,允许向服务中心检索服务列表
+    registry-fetch-interval-seconds: 5
+    registerWithEureka: false     #是否向服务中心注册自己   
+    fetchRegistry: true          #是否向服务中心检索服务
+    service-url: 
+      #服务注册中心默认地址,多个用逗号分隔
+      defaultZone: http://localhost:${server.port}/eureka/
+ server: 
+    # 是否开启自我保护机制
+    # 在分布式系统设计里头，通常需要对应用实例的存活进行健康检查，这里比较关键的问题就是要处理好网络偶尔抖动或短暂不可用时造成的误判。另外Eureka Server端与Client端之间如果出现网络分区问题，在极端情况下可能会使得Eureka Server清空部分服务的实例列表，这个将严重影响到Eureka server的 availibility属性。因此Eureka server引入了SELF PRESERVATION机制。
+    # Eureka client端与Server端之间有个租约，Client要定时发送心跳来维持这个租约，表示自己还存活着。 Eureka通过当前注册的实例数，去计算每分钟应该从应用实例接收到的心跳数，如果最近一分钟接收到的续约的次数小于指定阈值的话，则关闭租约失效剔除，禁止定时任务剔除失效的实例，从而保护注册信息。
+    # 此处关闭可以防止问题（测试环境可以设置为false）：Eureka server由于开启并引入了SELF PRESERVATION模式，导致registry的信息不会因为过期而被剔除掉，直到退出SELF PRESERVATION模式才能剔除。
+    enable-self-preservation: false #关闭保护机制        
+    # 是否开启缓存
+    use-read-only-response-cache: true
+    #有效防止的问题是：应用实例下线时有告知Eureka server下线，但是由于Eureka server的REST API有response cache，因此需要等待缓存过期才能更新
+    response-cache-auto-expiration-in-seconds: 60  #设置缓存过期时间
+    # 指定 Eviction Task 定时任务的调度频率，用于剔除过期的实例，此处未使用默认频率，频率为：5/秒，默认为：60/秒
+    # 有效防止的问题是：应用实例异常挂掉，没能在挂掉之前告知Eureka server要下线掉该服务实例信息。这个就需要依赖Eureka server的EvictionTask去剔除。
+    eviction-interval-timer-in-ms: 5000
+    # 指定每分钟需要收到的续约次数的阈值，默认值就是：0.85
+    renewal-percent-threshold: 0.85 
